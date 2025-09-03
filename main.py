@@ -17,8 +17,8 @@ def run_pipeline(question: str, top_k: int = 4,
 	responder = responder or ResponderAgent(model="llama2")
 
 	retrieved: List[Dict[str, Any]] = retriever.retrieve(question=question, top_k=top_k)
-	reasoned: str = reasoner.reason(question=question, passages=retrieved)
-	final_answer: str = responder.respond(question=question, reasoning_summary=reasoned)
+	reasoned: str = reasoner.reason(question=question, passages=retrieved, max_tokens=640)
+	final_answer: str = responder.respond(question=question, reasoning_summary=reasoned, max_tokens=768)
 
 	return {
 		"question": question,
